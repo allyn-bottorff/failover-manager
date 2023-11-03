@@ -1,0 +1,19 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: failover-manager-edit-workloads
+  labels:
+    {{- include "operator.labels" . | nindent 4 }}
+rules:
+  - apiGroups:
+      - 'apps'
+      - 'batch'
+    resources:
+      - deployments
+      - cronjobs
+    verbs:
+      - watch
+      - list
+      - get
+      - patch
+      - update

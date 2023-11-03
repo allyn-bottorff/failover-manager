@@ -1,0 +1,14 @@
+---
+apiVersion: getambassador.io/v3alpha1
+kind: Mapping
+metadata:
+  name: {{ include "api.fullname" . }}
+  labels:
+    {{- include "api.labels" . | nindent 4 }}
+spec:
+  prefix: "{{ .Values.mappings.prefix }}"
+  rewrite: "{{ .Values.mappings.rewrite }}"
+  service: "{{ include "api.fullname" . }}"
+  hostname: "{{ .Values.mappings.extHostname }}"
+  timeout_ms: {{ .Values.mappings.timeout }}
+
