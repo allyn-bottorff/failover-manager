@@ -27,19 +27,18 @@ active or not.
 
 1. Configure the `values.yaml` file for the API to expose the service outside
   the cluster. 
--- Possible options for presenting the API externally include nginx ingress, an
+  - Possible options for presenting the API externally include nginx ingress, an
    API Gateway, or possibly a service type of LoadBalancer. Take note of the
    URL by which this will be reached.
 2. Configure the `values.yaml` file for the controller.
 
--- `intUrl` - the URL of API using the Kubernetes DNS name: i.e http://failovermanager-api.failovermanager.svc.cluster.local
--- `extUrl` - the URL of the API which is externally accessible
--- `pollPeriodSeconds` - the number of seconds between polling the internal and
-   external APIs
---x `apiServer` - the internal url of the Kubernetes API. Typically
-   `https://kubernetes.default.svc`
-3. At the root of the helm directory run `helm install failovermanager ./
-  --create-namespace --namespace failovermanager` 
+  - `intUrl` - the URL of API using the Kubernetes DNS name: i.e http://failovermanager-api.failovermanager.svc.cluster.local
+  - `extUrl` - the URL of the API which is externally accessible
+  - `pollPeriodSeconds` - the number of seconds between polling the internal and
+    external APIs
+  - `apiServer` - the internal url of the Kubernetes API. Typically
+    `https://kubernetes.default.svc`
+3. At the root of the helm directory run `helm install failovermanager ./ --create-namespace --namespace failovermanager` 
 
 
 
@@ -51,17 +50,17 @@ Manager.
 
 - Label: `failovermanager: enabled`
 - Annotations:
--- Deployments:
---- `failovermanager/active-replicas: "3"`
----- Describes the minimum number of replicas set when the cluster is "active".
---- `failovermanager/inactive-replicas: "0"`
----- Describes the maximum number of replicas set when the cluster is "inactive".
--- CronJobs:
---- `failovermanager/active-suspend: "false"`
----- When the cluster is "active" the CronJob `suspend` flag will be `false`,
+  - Deployments:
+  - `failovermanager/active-replicas: "3"`
+   - Describes the minimum number of replicas set when the cluster is "active".
+  - `failovermanager/inactive-replicas: "0"`
+   - Describes the maximum number of replicas set when the cluster is "inactive".
+ - CronJobs:
+  - `failovermanager/active-suspend: "false"`
+   - When the cluster is "active" the CronJob `suspend` flag will be `false`,
 	 enabling normal job scheduling.
---- `failovermanager/inactive-suspend: "true"`
----- When the cluster is "inactive" the CronJob `suspend` flag will be `true`,
+  - `failovermanager/inactive-suspend: "true"`
+   - When the cluster is "inactive" the CronJob `suspend` flag will be `true`,
 	 preventing the job from being scheduled.
 
 
